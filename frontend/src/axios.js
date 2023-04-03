@@ -4,9 +4,9 @@ const instance = axios.create({
   baseURL: `http://localhost:4000/`,
 });
 
-const githubLogin = async () => {
-  const { data: { msg } } = await instance.post('/start')
-  return msg
+const getIssue = async () => {
+  const { data: { issues } } = await instance.get('/octokit/getIssue');
+  console.log(issues);
 };
 
-export { githubLogin };
+export { getIssue };
