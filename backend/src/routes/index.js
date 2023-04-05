@@ -1,7 +1,7 @@
 import {Router} from 'express'
-import getRequestToken from './getRequestToken'
+import api from './api'
 
 const router = Router();
-router.use('/', getRequestToken);
+router.use('/', api);
 
 export default router;

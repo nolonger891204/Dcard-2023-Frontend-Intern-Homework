@@ -1,0 +1,23 @@
+.ant-tabs-tab-active #rc-tabs-1-tab-1, #rc-tabs-1-tab-1.ant-tabs-tab-btn:hover{
+    color: #9096a0 !important;
+}
+
+.ant-tabs-nav-list:has(.ant-tabs-tab-active #rc-tabs-1-tab-1) .ant-tabs-ink-bar{
+    background: #9096a0 !important;
+}
+
+.ant-tabs-tab-active #rc-tabs-1-tab-3, #rc-tabs-1-tab-3.ant-tabs-tab-btn:hover{
+    color: #ef4444 !important;
+}
+
+.ant-tabs-nav-list:has(.ant-tabs-tab-active #rc-tabs-1-tab-3) .ant-tabs-ink-bar{
+    background: #ef4444 !important;
+}
+
+.ant-tabs-tab-active #rc-tabs-1-tab-4, #rc-tabs-1-tab-4.ant-tabs-tab-btn:hover{
+    color: #12b981 !important;
+}
+
+.ant-tabs-nav-list:has(.ant-tabs-tab-active #rc-tabs-1-tab-4) .ant-tabs-ink-bar{
+    background: #12b981 !important;
+}

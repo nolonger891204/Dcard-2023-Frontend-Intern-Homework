@@ -1,0 +1,9 @@
+.ant-list-item{
+    height: 100px;
+}
+
+.ant-list-item-meta-title{
+    font-size: larger !important;
+    margin-top: 0 !important;
+    margin-bottom: unset !important;
+}
