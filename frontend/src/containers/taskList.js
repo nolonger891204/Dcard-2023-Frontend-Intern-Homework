@@ -71,8 +71,8 @@ const TaskList = ({ labels }) => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [defaultTitle, setDefaultTitle] = useState("");
   const [defaultBody, setDefaultBody] = useState("");
+  const [issueUrl, setIssueUrl] = useState("");
   const [ascending, setAscending] = useState(false);
-  const [baseInfo, setBaseInfo] = useState({'username': "", 'repo': "", 'issue_number': ""});
 
   const [api] = notification.useNotification();
   const openNotification = (text, placement) => {
@@ -83,7 +83,12 @@ const TaskList = ({ labels }) => {
     });
   };
 
-  const toggleEditModal = () => {
+  const toggleEditModal = (url, title, body) => {
+    if ( body !== undefined ){
+      setDefaultTitle(title);
+      setDefaultBody(body);
+      setIssueUrl(url);
+    }
     setEditModalOpen(!editModalOpen);
   };
 
@@ -110,42 +115,6 @@ const TaskList = ({ labels }) => {
       appendData();
     }
   };
-
-  const items = [
-    {
-      key: '1',
-      label: (
-        <>
-          <div
-            style={{ color: "#9096a0"}}
-            onClick={toggleEditModal}
-          >
-            <FormOutlined style={{marginRight: "10px"}} />
-            Edit
-          </div>
-          <EditModal 
-            editModalOpen={editModalOpen} 
-            setEditModalOpen={setEditModalOpen} 
-            toggleModal={toggleEditModal}
-            baseInfo={baseInfo}
-            defaultTitle={defaultTitle}
-            defaultBody={defaultBody}  
-          />
-        </>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <div 
-          style={{ color: "#ef4444"}}
-        >
-          <DeleteOutlined style={{marginRight: "10px"}}/>
-          Delete
-        </div>
-      ),
-    }
-  ];
 
   const onSearch = async (value) => {
     const result = await queryIssue(value);
@@ -194,21 +163,35 @@ const TaskList = ({ labels }) => {
           onScroll={onScroll}
         >
           {(item) => (
-            <List.Item key={item.url}>
+            <List.Item 
+              key={item.url}
+              id={item.url}
+            >
               <List.Item.Meta
                 title={item.title}
                 description={item.body}
               />
-              <MyDropdown
-                menu={{ items, }}
-                placement="left"
+              <div
+                style={{ color: "#9096a0"}}
+                onClick={()=>toggleEditModal(item.url, item.title, item.body)}
               >
-                <EllipsisOutlined />
-              </MyDropdown>
+                <FormOutlined style={{marginRight: "10px"}} />
+              </div>
+              <div style={{ color: "#ef4444"}}>
+                <DeleteOutlined style={{marginRight: "10px"}}/>
+              </div>
             </List.Item>
           )}
         </MyList>
       </List>
+      <EditModal 
+        editModalOpen={editModalOpen} 
+        setEditModalOpen={setEditModalOpen} 
+        toggleModal={toggleEditModal}
+        issueUrl={issueUrl}
+        defaultTitle={defaultTitle}
+        defaultBody={defaultBody}
+      />
     </>
   );
 };

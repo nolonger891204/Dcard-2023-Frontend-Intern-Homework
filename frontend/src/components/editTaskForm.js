@@ -1,14 +1,39 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { updateIssue } from '../axios';
+import { useEffect, useState } from 'react';
 
-const EditTaskForm = ({ username, repo, issue_number, defaultTitle, defaultBody }) => {
+const EditTaskForm = ({ issueUrl, defaultTitle, defaultBody }) => {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    updateIssue(username, repo, issue_number, values);
+  const [defaultValues, setDefaultValues] = useState(
+    {
+      ["title"]: defaultTitle,
+      ["body"]: defaultBody
+    }
+  );
+
+  const onFinish = async (values) => {
+    const status = await updateIssue(issueUrl, values);
+    if ( status === "success"){
+      message.success('Update success', 2.5)
+    } else {
+      message.error('Update error', 2.5)
+    }
   };
+  
   const onReset = () => {
     form.resetFields();
   };
+  useEffect(() => {
+    setDefaultValues({
+      ["title"]: defaultTitle,
+      ["body"]: defaultBody
+    });
+  }, [defaultTitle]);
+
+  useEffect(()=>{
+    form.setFieldsValue(defaultValues)
+  }, [defaultValues]);
+
   return (
     <Form
       form={form}
@@ -17,10 +42,7 @@ const EditTaskForm = ({ username, repo, issue_number, defaultTitle, defaultBody 
       style={{
         maxWidth: 600,
       }}
-      initialValues={{
-        ["title"]: defaultTitle,
-        ["body"]: defaultBody
-      }}
+      initialValues={defaultValues}
     >
       <Form.Item
         name="title"

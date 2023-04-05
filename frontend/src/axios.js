@@ -18,7 +18,7 @@ const getIssue = async (page_cnt, labels) => {
         labels: labels
       } 
     });
-  // console.log(issues);
+  console.log(issues);
   return issues
 };
 
@@ -33,17 +33,17 @@ const queryIssue = async (q_text) => {
   return issues
 }
 
-const updateIssue = async (username, repo, issue_number, data) => {
-  await instance.get('/update/issues',
+const updateIssue = async (issueUrl, data) => {
+  const { data: { msg } } = await instance.get('/update/issues',
   {
     params:
     {
-      username: username,
-      repo: repo, 
-      issue_number: issue_number, 
+      issueUrl: issueUrl,
       data: data
     }
   })
+  console.log(msg)
+  return msg
 }
 
 

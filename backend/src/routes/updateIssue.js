@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const updateIssue = async (accessToken, username, repo, issue_number, data) => {
+const updateIssue = async (accessToken, issueUrl, data) => {
     const result = await axios({
       method: 'post',
-      url: `https://api.github.com/repos/${username}/${repo}/issues/${issue_number}`,
+      url: `${issueUrl}`,
       data: data,
       headers: {
         accept: 'application/vnd.github.v3+json',
@@ -11,7 +11,7 @@ const updateIssue = async (accessToken, username, repo, issue_number, data) => {
       }
     });
   
-    console.log(result);
+    return result.status;
 }
 
 export { updateIssue }

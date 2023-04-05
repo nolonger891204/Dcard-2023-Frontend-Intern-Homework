@@ -2,9 +2,7 @@ import { Button, Modal } from 'antd'
 import { useState } from 'react'
 import { EditTaskForm } from '../components/editTaskForm'
 
-const EditModal = ({ editModalOpen, setEditModalOpen, toggleModal, baseInfo, defaultTitle, defaultBody }) => {
-  const [loading, setLoading] = useState(false);
-
+const EditModal = ({ editModalOpen, setEditModalOpen, toggleModal, issueUrl, defaultTitle, defaultBody }) => {
   return (
     <Modal
       open={editModalOpen}
@@ -12,9 +10,7 @@ const EditModal = ({ editModalOpen, setEditModalOpen, toggleModal, baseInfo, def
       onCancel={toggleModal}
     >
       <EditTaskForm 
-        username={baseInfo.username} 
-        repo={baseInfo.repo} 
-        issue_number={baseInfo.issue_number} 
+        issueUrl={issueUrl} 
         defaultTitle={defaultTitle} 
         defaultBody={defaultBody} />
     </Modal>

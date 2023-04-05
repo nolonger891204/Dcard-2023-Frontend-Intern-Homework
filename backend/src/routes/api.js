@@ -39,14 +39,13 @@ router.get('/search/issues', async (req, res) => {
 });
 
 router.get('/update/issues', async (req, res) => {
-  const username = req.query.username;
-  const repo = req.query.repo;
-  const issue_number = req.query.issue_number;
-  const data = req.query.data;
-  
+  const issueUrl = req.query.issueUrl;
+  const data = req.query.data;  
   try {
-    await updateIssue(accessToken, username, repo, issue_number, data);
-    // res.json({ issues: result });
+    const status = await updateIssue(accessToken, issueUrl, data);
+    if (status === 200){
+      res.json({ msg: "success" });
+    }
   } catch (e) {
     console.log(e.message);
   }
